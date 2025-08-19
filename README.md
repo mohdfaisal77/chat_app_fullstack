@@ -45,6 +45,8 @@ flutter pub get
 
 ```dart
 // lib/viewmodels/auth_repository.dart
+//String baseUrl = "https://chat-app-backend-tbqs.onrender.com";
+
 String baseUrl = "http://192.168.31.94:400"; // replace with your backend IP
 ```
 
