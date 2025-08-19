@@ -30,7 +30,7 @@ This app follows MVVM + BLoC:
 
 1. Clone the repository
 ```
-git clone https://github.com/your-username/chat_app_fullstack.git
+git clone https://github.com/mohdfaisal77/chat_app_fullstack.git
 cd chat_app_fullstack
 ```
 
