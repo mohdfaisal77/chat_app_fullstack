@@ -66,9 +66,14 @@ class _LoginViewState extends State<LoginView> {
                           BlocConsumer<AuthBloc, AuthState>(
                             listener: (context, state) {
                               if (state is Authenticated) {
-                                // handled by parent navigator
+                                // Navigation will be handled by AuthWrapper
                               } else if (state is AuthFailure) {
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(state.message),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
                               }
                             },
                             builder: (context, state) {
@@ -78,11 +83,22 @@ class _LoginViewState extends State<LoginView> {
                                   onPressed: state is AuthLoading
                                       ? null
                                       : () {
-                                    context.read<AuthBloc>().add(AuthLoginRequested(_email.text.trim(), _password.text));
+                                    context.read<AuthBloc>().add(
+                                        AuthLoginRequested(_email.text.trim(), _password.text)
+                                    );
                                   },
-                                  style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 14)),
+                                  style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(vertical: 14)
+                                  ),
                                   child: state is AuthLoading
-                                      ? const SizedBox(height: 18, width: 18, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                                      ? const SizedBox(
+                                      height: 18,
+                                      width: 18,
+                                      child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                          color: Colors.white
+                                      )
+                                  )
                                       : const Text('Sign in'),
                                 ),
                               );
@@ -91,7 +107,7 @@ class _LoginViewState extends State<LoginView> {
                           const SizedBox(height: 8),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).pushNamed('/signup'); // adapt to your route
+                              Navigator.of(context).pushNamed('/signup');
                             },
                             child: const Text('Create account'),
                           ),

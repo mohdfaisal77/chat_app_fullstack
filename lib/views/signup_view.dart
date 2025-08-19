@@ -58,12 +58,18 @@ class _SignupViewState extends State<SignupView> {
                           if (state is Unauthenticated) {
                             Navigator.of(context).pop(); // go back to login
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Signup successful. Please login.')),
+                              const SnackBar(
+                                content: Text('Signup successful. Please login.'),
+                                backgroundColor: Colors.green,
+                              ),
                             );
                           }
                           if (state is AuthFailure) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(state.message)),
+                              SnackBar(
+                                content: Text(state.message),
+                                backgroundColor: Colors.red,
+                              ),
                             );
                           }
                         },
@@ -94,6 +100,16 @@ class _SignupViewState extends State<SignupView> {
                                   onPressed: state is AuthLoading
                                       ? null
                                       : () {
+                                    if (_email.text.trim().isEmpty || _password.text.isEmpty) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Please fill in all fields'),
+                                          backgroundColor: Colors.orange,
+                                        ),
+                                      );
+                                      return;
+                                    }
+
                                     context.read<AuthBloc>().add(
                                       AuthSignupRequested(
                                         _email.text.trim(),
@@ -108,7 +124,10 @@ class _SignupViewState extends State<SignupView> {
                                       ? const SizedBox(
                                     height: 18,
                                     width: 18,
-                                    child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                    child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: Colors.white
+                                    ),
                                   )
                                       : const Text('Sign up'),
                                 ),
